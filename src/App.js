@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import TasksPage from './components/TasksPage';
+
+const mockTasks = [
+    {
+        id: 1,
+        title: 'Learn Redux',
+        description: 'The store, actions, and reducers, oh my!',
+        status: 'In Progress',
+    },
+    {
+        id: 2,
+        title: 'Peace on Earth',
+        description: 'No big deal.',
+        status: 'In Progress',
+    },
+];
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="main-content">
+                <TasksPage tasks={mockTasks} />
+            </div>
+        );
+    }
 }
 
 export default App;
