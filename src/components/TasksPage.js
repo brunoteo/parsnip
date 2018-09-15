@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import TaskList from './TaskList';
 
-import { TASK_STATUSES } from '../constants';
+import {TASK_STATUSES} from '../constants';
 
 class TasksPage extends Component {
     constructor(props) {
@@ -9,16 +9,16 @@ class TasksPage extends Component {
         this.state = {
             showNewCardForm: false,
             title: '',
-            description: '',
-    };
+            description: ''
+        }
     }
 
     onTitleChange = (e) => {
-        this.setState({ title: e.target.value });
+        this.setState({title: e.target.value});
     }
 
     onDescriptionChange = (e) => {
-        this.setState({ description: e.target.value });
+        this.setState({description: e.target.value});
     }
 
     resetForm() {
@@ -34,16 +34,16 @@ class TasksPage extends Component {
         this.props.onCreateTask({
             title: this.state.title,
             description: this.state.description,
-    });
+        });
         this.resetForm();
     }
 
     toggleForm = () => {
-        this.setState({ showNewCardForm: !this.state.showNewCardForm });
+        this.setState({showNewCardForm: !this.state.showNewCardForm});
     }
 
     renderTaskLists() {
-        const { tasks } = this.props;
+        const {tasks} = this.props;
         return TASK_STATUSES.map(status => {
             const statusTasks = tasks.filter(task => task.status === status);
             return (
@@ -51,6 +51,7 @@ class TasksPage extends Component {
                     key={status}
                     status={status}
                     tasks={statusTasks}
+                    onStatusChange={this.props.onStatusChange}
                 />
             );
         });
