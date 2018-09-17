@@ -7,8 +7,9 @@ import { Provider } from 'react-redux';
 import tasks from './reducers';
 import App from './App';
 import './index.css';
+import { devToolsEnhancer } from 'redux-devtools-extension';
 
-const store = createStore(tasks);
+const store = createStore(tasks, devToolsEnhancer());
 
 ReactDOM.render(
     <Provider store={store}>
