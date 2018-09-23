@@ -12,3 +12,7 @@ const client = axios.create({
 export function fetchTasks() {
     return client.get('/tasks');
 }
+
+export function createTask(params) {
+    return client.post('/tasks', params);
+}
