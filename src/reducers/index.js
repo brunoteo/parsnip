@@ -1,11 +1,11 @@
 export default function tasks(state = { tasks: [] }, action) {
     switch (action.type) {
-        case 'EDIT_TASK': {
+        case 'EDIT_TASK_SUCCEEDED': {
             const { payload } = action;
             return {
                 tasks: state.tasks.map(task => {
-                    if (task.id === payload.id) {
-                        return Object.assign({}, task, payload.params);
+                    if (task.id === payload.task.id) {
+                        return payload.task;
                     }
 
                     return task;
