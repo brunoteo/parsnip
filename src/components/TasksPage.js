@@ -59,8 +59,8 @@ class TasksPage extends Component {
 
     render() {
         return (
-            <div className="task-list">
-                <div className="task-list-header">
+            <div className="tasks">
+                <div className="tasks-header">
                     <button
                         className="button button-default"
                         onClick={this.toggleForm}
@@ -69,7 +69,7 @@ class TasksPage extends Component {
                     </button>
                 </div>
                 {this.state.showNewCardForm && (
-                    <form className="task-list-form" onSubmit={this.onCreateTask}>
+                    <form className="new-task-form" onSubmit={this.onCreateTask}>
                         <input
                             className="full-width-input"
                             onChange={this.onTitleChange}
