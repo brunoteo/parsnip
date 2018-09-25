@@ -1,8 +1,8 @@
 import * as api from '../api';
 
-export function createTask({ title, description, status = 'Unstarted' }) {
+export function createTask({title, description, status = 'Unstarted'}) {
     return dispatch => {
-        api.createTask({ title, description, status }).then(resp => {
+        api.createTask({title, description, status}).then(resp => {
             dispatch(createTaskSucceeded(resp.data))
         })
     }
@@ -47,11 +47,16 @@ export function fetchTasks() {
     return dispatch => {
         dispatch(fetchTasksStarted());
 
-        api.fetchTasks().then(resp => {
-            setTimeout(() => {
-                dispatch(fetchTasksSucceeded(resp.data));
-            }, 2000);
-        });
+        api.fetchTasks()
+            .then(resp => {
+                setTimeout(() => {
+                    dispatch(fetchTasksSucceeded(resp.data));
+                }, 2000);
+                // throw new Error('Oh noes! Unable to fetch tasks!');
+            })
+            .catch(err => {
+                dispatch(fetchTasksFailed(err.message));
+            })
     };
 }
 
@@ -62,6 +67,15 @@ export function fetchTasksSucceeded(tasks) {
             tasks
         }
     }
+}
+
+function fetchTasksFailed(error) {
+    return {
+        type: 'FETCH_TASKS_FAILED',
+        payload: {
+            error,
+        },
+    };
 }
 
 function getTaskById(tasks, id) {
