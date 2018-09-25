@@ -19,17 +19,13 @@ function createTaskSucceeded(task) {
 
 export function editTask(id, params = {}) {
     return (dispatch, getState) => {
-        const task = getTaskById(getState().tasks, id);
+        const task = getTaskById(getState().tasks.tasks, id);
         const updatedTask = Object.assign({}, task, params);
 
         api.editTask(id, updatedTask).then(resp => {
             dispatch(editTaskSucceeded(resp.data));
         });
     };
-}
-
-function getTaskById(tasks, id) {
-    return tasks.find(task => task.id === id);
 }
 
 export function editTaskSucceeded(task) {
@@ -66,4 +62,9 @@ export function fetchTasksSucceeded(tasks) {
             tasks
         }
     }
+}
+
+function getTaskById(tasks, id) {
+    console.log(tasks)
+    return tasks.find(task => task.id === id);
 }
