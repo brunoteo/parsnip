@@ -15,8 +15,8 @@ export default function tasks(state = initialState, action) {
         case 'FETCH_TASKS_SUCCEEDED': {
             return {
                 ...state,
+                tasks: action.payload,
                 isLoading: false,
-                tasks: action.payload.tasks,
             };
         }
         case 'FETCH_TASKS_FAILED': {
@@ -29,11 +29,11 @@ export default function tasks(state = initialState, action) {
         case 'CREATE_TASK_SUCCEEDED': {
             return {
                 ...state,
-                tasks: state.tasks.concat(action.payload.task),
+                tasks: state.tasks.concat(action.payload),
             };
         }
         case 'EDIT_TASK_SUCCEEDED': {
-            const {payload} = action;
+            const { payload } = action;
             const nextTasks = state.tasks.map(task => {
                 if (task.id === payload.task.id) {
                     return payload.task;
