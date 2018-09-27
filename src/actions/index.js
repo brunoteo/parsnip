@@ -13,7 +13,15 @@ function createTaskSucceeded(task) {
         type: 'CREATE_TASK_SUCCEEDED',
         payload: {
             task,
-        }
+        },
+        meta: {
+            analytics: {
+                event: 'create_task',
+                data: {
+                    id: task.id,
+                },
+            },
+        },
     }
 }
 
@@ -79,6 +87,5 @@ function fetchTasksFailed(error) {
 }
 
 function getTaskById(tasks, id) {
-    console.log(tasks)
     return tasks.find(task => task.id === id);
 }
