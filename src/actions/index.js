@@ -20,10 +20,15 @@ function createTaskSucceeded(task) {
 export function editTask(id, params = {}) {
     return (dispatch, getState) => {
         const task = getTaskById(getState().tasks.tasks, id);
-        const updatedTask = Object.assign({}, task, params);
-
+        const updatedTask = {
+            ...task,
+            ...params,
+        };
         api.editTask(id, updatedTask).then(resp => {
             dispatch(editTaskSucceeded(resp.data));
+            if (resp.data.status === 'In Progress') {
+                dispatch(progressTimerStart(resp.data.id));
+            }
         });
     };
 }
@@ -35,6 +40,10 @@ export function editTaskSucceeded(task) {
             task
         }
     }
+}
+
+function progressTimerStart(taskId) {
+    return { type: 'TIMER_STARTED', payload: { taskId } };
 }
 
 // function fetchTasksStarted() {

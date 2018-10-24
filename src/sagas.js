@@ -1,8 +1,20 @@
-import {call, put, takeLatest} from 'redux-saga/effects';
+import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
+import {delay} from "redux-saga";
 import * as api from "./api";
 
 export default function* rootSaga() {
     yield takeLatest('FETCH_TASKS_STARTED', fetchTasks);
+    yield takeEvery('TIMER_STARTED', handleProgressTimer);
+}
+
+function* handleProgressTimer({ payload }) {
+    while (true) {
+        yield call(delay, 1000);
+        yield put({
+            type: 'TIMER_INCREMENT',
+            payload: { taskId: payload.taskId },
+        });
+    }
 }
 
 function* fetchTasks() {
