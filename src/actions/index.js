@@ -37,45 +37,50 @@ export function editTaskSucceeded(task) {
     }
 }
 
-function fetchTasksStarted() {
-    return {
-        type: 'FETCH_TASKS_STARTED',
-    };
-}
+// function fetchTasksStarted() {
+//     return {
+//         type: 'FETCH_TASKS_STARTED',
+//     };
+// }
 
+// export function fetchTasks() {
+//     return dispatch => {
+//         dispatch(fetchTasksStarted());
+//
+//         api.fetchTasks()
+//             .then(resp => {
+//                 setTimeout(() => {
+//                     dispatch(fetchTasksSucceeded(resp.data));
+//                 }, 2000);
+//                 // throw new Error('Oh noes! Unable to fetch tasks!');
+//             })
+//             .catch(err => {
+//                 dispatch(fetchTasksFailed(err.message));
+//             })
+//     };
+// }
+
+// export function fetchTasksSucceeded(tasks) {
+//     return {
+//         type: 'FETCH_TASKS_SUCCEEDED',
+//         payload: {
+//             tasks
+//         }
+//     }
+// }
+
+// function fetchTasksFailed(error) {
+//     return {
+//         type: 'FETCH_TASKS_FAILED',
+//         payload: {
+//             error,
+//         },
+//     };
+// }
+
+//Only for sagas
 export function fetchTasks() {
-    return dispatch => {
-        dispatch(fetchTasksStarted());
-
-        api.fetchTasks()
-            .then(resp => {
-                setTimeout(() => {
-                    dispatch(fetchTasksSucceeded(resp.data));
-                }, 2000);
-                // throw new Error('Oh noes! Unable to fetch tasks!');
-            })
-            .catch(err => {
-                dispatch(fetchTasksFailed(err.message));
-            })
-    };
-}
-
-export function fetchTasksSucceeded(tasks) {
-    return {
-        type: 'FETCH_TASKS_SUCCEEDED',
-        payload: {
-            tasks
-        }
-    }
-}
-
-function fetchTasksFailed(error) {
-    return {
-        type: 'FETCH_TASKS_FAILED',
-        payload: {
-            error,
-        },
-    };
+    return { type: 'FETCH_TASKS_STARTED' };
 }
 
 function getTaskById(tasks, id) {
