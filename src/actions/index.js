@@ -60,6 +60,19 @@ export function fetchTasks() {
     };
 }
 
+//Try with async/await
+// export function fetchTasks() {
+//     return async dispatch => {
+//         dispatch(fetchTasksStarted());
+//         try {
+//             const { data } = await api.fetchTasks();
+//             dispatch(fetchTasksSucceeded(data));
+//         } catch (e) {
+//             dispatch(fetchTasksFailed(e));
+//         }
+//     };
+// }
+
 export function fetchTasksSucceeded(tasks) {
     return {
         type: 'FETCH_TASKS_SUCCEEDED',
