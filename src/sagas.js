@@ -1,3 +1,14 @@
+import { fork } from 'redux-saga/effects';
+
 export default function* rootSaga() {
-    console.log('rootSaga reporting for duty');
+    yield fork(watchFetchTasks);
+    yield fork(watchSomethingElse);
+}
+
+function* watchFetchTasks() {
+    console.log('watching!');
+}
+
+function* watchSomethingElse() {
+    console.log('watching something else!');
 }
