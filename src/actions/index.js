@@ -27,7 +27,11 @@ export function editTask(id, params = {}) {
         api.editTask(id, updatedTask).then(resp => {
             dispatch(editTaskSucceeded(resp.data));
             if (resp.data.status === 'In Progress') {
-                dispatch(progressTimerStart(resp.data.id));
+                return dispatch(progressTimerStart(resp.data.id));
+            }
+
+            if (task.status === 'In Progress') {
+                return dispatch(progressTimerStop(resp.data.id));
             }
         });
     };
@@ -44,6 +48,10 @@ export function editTaskSucceeded(task) {
 
 function progressTimerStart(taskId) {
     return { type: 'TIMER_STARTED', payload: { taskId } };
+}
+
+function progressTimerStop(taskId) {
+    return { type: 'TIMER_STOPPED', payload: { taskId } };
 }
 
 // function fetchTasksStarted() {
