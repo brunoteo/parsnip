@@ -109,6 +109,11 @@ hr {
   height: 100vh;
 }
 
+.task-timer {
+  text-align: right;
+  font-weight: bold;
+}
+
 .flash-error {
   text-align: center;
   padding: 25px;
