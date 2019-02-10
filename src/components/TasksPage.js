@@ -15,11 +15,11 @@ class TasksPage extends Component {
 
     onTitleChange = (e) => {
         this.setState({title: e.target.value});
-    }
+    };
 
     onDescriptionChange = (e) => {
         this.setState({description: e.target.value});
-    }
+    };
 
     resetForm() {
         this.setState({
@@ -36,11 +36,11 @@ class TasksPage extends Component {
             description: this.state.description,
         });
         this.resetForm();
-    }
+    };
 
     toggleForm = () => {
         this.setState({showNewCardForm: !this.state.showNewCardForm});
-    }
+    };
 
     renderTaskLists() {
         const {tasks} = this.props;
@@ -57,6 +57,10 @@ class TasksPage extends Component {
         });
     }
 
+    onSearch = e => (
+        console.log('search term', e.target.value)
+    );
+
     render() {
         if (this.props.isLoading) {
             return (
@@ -68,6 +72,10 @@ class TasksPage extends Component {
         return (
             <div className="tasks">
                 <div className="tasks-header">
+                    <input onChange={this.onSearch}
+                           type="text"
+                           placeholder="Search..."
+                    />
                     <button
                         className="button button-default"
                         onClick={this.toggleForm}
