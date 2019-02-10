@@ -2,6 +2,7 @@ const initialState = {
     tasks: [],
     isLoading: false,
     error: null,
+    searchTerm: ''
 };
 
 export default function tasks(state = initialState, action) {
@@ -46,8 +47,18 @@ export default function tasks(state = initialState, action) {
                 tasks: nextTasks,
             };
         }
+        case 'FILTER_TASKS': {
+            return { ...state, searchTerm: action.payload.searchTerm };
+        }
+
         default: {
             return state;
         }
     }
+}
+
+export function getFilteredTasks(tasks, searchTerm) {
+    return tasks.filter(task => {
+        return task.title.match(new RegExp(searchTerm, 'i'));
+    });
 }

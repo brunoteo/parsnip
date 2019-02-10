@@ -91,6 +91,13 @@ function fetchTasksFailed(error) {
     };
 }
 
+export function filterTasks(searchTerm) {
+    return {
+        type: 'FILTER_TASKS',
+        payload: {searchTerm}
+    };
+}
+
 function getTaskById(tasks, id) {
     console.log(tasks)
     return tasks.find(task => task.id === id);

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import TasksPage from './components/TasksPage';
-import {createTask, editTask, fetchTasks} from './actions';
+import {createTask, editTask, fetchTasks, filterTasks} from './actions';
 import FlashMessage from "./components/FlashMessage";
+import {getFilteredTasks} from './reducers/';
 
 class App extends Component {
     componentDidMount() {
@@ -11,11 +12,15 @@ class App extends Component {
 
     onCreateTask = ({title, description}) => {
         this.props.dispatch(createTask({title, description}))
-    }
+    };
 
     onStatusChange = (id, status) => {
         this.props.dispatch(editTask(id, {status}))
-    }
+    };
+
+    onSearch = searchTerm => (
+        this.props.dispatch(filterTasks(searchTerm))
+    );
 
     render() {
         return (
@@ -27,6 +32,7 @@ class App extends Component {
                         tasks={this.props.tasks}
                         onCreateTask={this.onCreateTask}
                         onStatusChange={this.onStatusChange}
+                        onSearch={this.onSearch}
                         isLoading={this.props.isLoading}
                     />
                 </div>
@@ -36,8 +42,9 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-    const {tasks, isLoading, error} = state.tasks;
-    return {tasks, isLoading, error};
+    const { tasks, isLoading, error, searchTerm } = state.tasks;
+
+    return { tasks: getFilteredTasks(tasks, searchTerm), isLoading, error };
 }
 
 export default connect(mapStateToProps)(App)
